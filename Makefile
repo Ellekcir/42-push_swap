@@ -1,35 +1,41 @@
-# Push_Swap MAKEFILE
+NAME    = push_swap
+HEADER  = push_swap.h
 
-PUSH_SWAP	= push_swap.a
-HEADER 	= push_swap.h
-BONUS	= checker
+SRC     = op_rotate.c \
+		op_rev_rotate.c \
+		op_push.c \
+		op_swap.c \
+		sort_radix.c \
+		sort_five_or_less.c \
+		input_validation.c \
+		stack.c \
+		utils.c \
+		push_swap.c 
 
-SRC = push_swap.c \
-      operations.c \
-      sort_large.c \
-      sort_small.c \
-      utils.c 
 
-OBJ = $(SRC:.c=.o)
+OBJ     = $(SRC:.c=.o)
 
-CC		= gcc 
-CFLAGS	= -Wall -Werror -Wextra -I$(HEADER)
+# COMPILER + FLAGS
+CC      = cc
+CFLAGS  = -Wall -Werror -Wextra -I.
 
-LIBFTNAME = libft.a
-LIBFTPATH= ./libft
- 
-all: $(PUSH_SWAP)
+# LIBFT SETUP
+LIBFTNAME   = libft.a
+LIBFTPATH   = ./libft
+LIBFT       = $(LIBFTPATH)/$(LIBFTNAME)
 
-$(PUSH_SWAP): $(SRC)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRC)
-# $(PUSH_SWAP): $(OBJ)
-# 	@make -C $(LIBFTPATH)
-# 	@cp $(LIBFTPATH)/$(LIBFTNAME) $(PUSH_SWAP)
-# 	@ar -rcs $(PUSH_SWAP) $(OBJ) 
-# 	@echo "$(PUSH_SWAP) created"
+# BUILD TARGETS
+all: $(LIBFT) $(NAME)
 
-%.o: %.c
-	@$(COMPILE) $(CFLAGS) -c $< -o $@
+$(LIBFT):
+	@make -C $(LIBFTPATH)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFTPATH) -lft
+	@echo "$(NAME) created"
+
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJ)
@@ -37,9 +43,9 @@ clean:
 	@echo "Object files deleted"
 
 fclean: clean
-	@rm -f $(PUSH_SWAP) $(LIBFTNAME)
+	@rm -f $(NAME)
 	@make fclean -C $(LIBFTPATH)
-	@echo "$(PUSH_SWAP) deleted"
+	@echo "$(NAME) deleted"
 
 re: fclean all
 

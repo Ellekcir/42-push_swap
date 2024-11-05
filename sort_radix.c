@@ -45,14 +45,14 @@ void	process_digit(t_stack *a, t_stack *b, int digit_place)
 		current_value = a->top->value;
 		digit = (current_value / digit_place) % 10;
 		if (digit < 5)
-			push(a, b);
+			ft_pb(a, b);
 		else
-			rotate(a);
+			ft_ra(a);
 		i++;
 	}
 }
 
-void	radix_sort(t_stack *a, t_stack *b)
+void	sort_radix(t_stack *a, t_stack *b)
 {
 	int	max_value;
 	int	digit_place;
@@ -63,14 +63,7 @@ void	radix_sort(t_stack *a, t_stack *b)
 	{
 		process_digit(a, b, digit_place);
 		while (!is_empty(b))
-			push(b, a);
+		 	ft_pa(b, a);
 		digit_place *= 10;
 	}
-}
-
-void	sort_large(t_stack *a, t_stack *b)
-{
-	if (is_sorted(a))
-		return ;
-	radix_sort(a, b);
 }
