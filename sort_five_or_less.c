@@ -21,18 +21,22 @@ void	sort_three(t_stack *a)
 	first = a->top->value;
 	second = a->top->next->value;
 	third = a->top->next->next->value;
-	if (first > second && second > third)
+
+	if (first < second && first < third) // 132
 	{
-		ft_sa(a);
+		ft_sa(a); //312
+		ft_ra(a); //123
+	}
+	else if (first > second && second > third) //321
+	{
+		ft_sa(a); //231
 		ft_rra(a);
 	}
-	if (first > second && first < third)
-		ft_sa(a);
-	if (first > third)
-		ft_ra(a);
-	if (second > first && second < third)
+	else if (first < third && second < third) // 213
+		ft_sa(a); // 123
+	else if (first < second) //231
 		ft_rra(a);
-	if (second > third)
+	else if (first > second) //312
 		ft_ra(a);
 }
 
@@ -90,3 +94,10 @@ void	sort_five_or_less(t_stack *a, t_stack *b)
 	ft_printf("\n -----Stack B:\n");
 	print_stack(b);
 }
+
+	// 123 SORTED
+	// 132 FIRST < SECOND FIRST < THIRD  SA 312 RA 123
+	// 231 FIRST < SECOND FIRST > THIRD RRA 123 
+	// 213 FIRST > SECOND FIRST < THIRD SA 123 ---
+	// 312 FIRST > SECOND FIRST > THIRD RA 123 ---
+	// 321 FIRST > SECOND  SECOND > THIRD SA 231 RRA 123 --- 
