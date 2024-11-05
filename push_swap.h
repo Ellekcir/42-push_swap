@@ -120,10 +120,11 @@ int is_empty(t_stack *stack);
 //---------------------------------------------------//
 // Sorts small sets of numbers
 // (five or less - Selection Sort)
-void sort_five_or_less(t_stack *a, t_stack *b);
+int find_min(t_stack *stack);
 void	sort_two(t_stack *a);
 void	sort_three(t_stack *a);
-int find_min(t_stack *stack);
+void	sort_to_five(t_stack *a, t_stack *b);
+void	sort_five_or_less(t_stack *a, t_stack *b);
 
 // Sorts larger sets of numbers using more complex algorithm
 // (Radix Sort)
