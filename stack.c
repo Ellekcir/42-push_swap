@@ -10,7 +10,7 @@ t_node *create_node(int value)
 	if (!new_node)
 		return (NULL);
 	new_node->value = value;
-	new_node->target_value = -1; // Initialize target_value as -1 to flag not been sorted
+	new_node->target_index = -1;
 	new_node->next = NULL;
 	ft_printf("A new node has been created: %d\n", new_node->value);
 
@@ -81,21 +81,4 @@ void free_stack(t_stack *stack)
 	}
 	free(stack);
 	ft_printf("\n----- Stack has been fully freed.-----\n");
-}
-
-void	print_stack(t_stack *stack)
-{
-	t_node	*current;
-
-    if (!stack || !stack->top)
-    {
-        ft_printf("Stack is empty.\n");
-        return ;
-    }
-	current = stack->top;
-	while (current != NULL)
-	{
-		ft_printf("\n%i", current->value);
-		current = current->next;
-	}
 }

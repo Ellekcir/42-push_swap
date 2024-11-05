@@ -23,4 +23,20 @@ int is_empty(t_stack *stack)
     return (stack == NULL || stack->size == 0);
 }
 
+void	print_stack(t_stack *stack)
+{
+	t_node	*current;
+
+    if (!stack || !stack->top)
+    {
+        ft_printf("Stack is empty.\n");
+        return ;
+    }
+	current = stack->top;
+	while (current != NULL)
+	{
+		ft_printf("\n%i", current->value);
+		current = current->next;
+	}
+}
 

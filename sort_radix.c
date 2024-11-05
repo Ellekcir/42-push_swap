@@ -1,69 +1,124 @@
 #include "push_swap.h"
 
-int	get_max_value(t_stack *stack)
+
+int	find_max(t_stack *stack)
 {
 	t_node	*temp;
 	int		max_value;
 
 	temp = stack->top;
-	max_value = temp->value;
+	max_value = temp->index;
 	while (temp != NULL)
 	{
-		if (temp->value > max_value)
-			max_value = temp->value;
+		if (temp->index > max_value)
+			max_value = temp->index;
 		temp = temp->next;
 	}
 	return (max_value);
 }
 
-int	stack_size(t_stack *stack)
+void	index_value(t_stack *stack)
 {
-	t_node	*temp;
-	int		size;
+	t_node	*current;
+	t_node	*compare;
+	int		index;
+	int		stack_size;
 
-	temp = stack->top;
-	size = 0;
-	while (temp != NULL)
+	stack_size = 0;
+	ft_printf("\n----- INDEXING VALUES -----\n");
+	current = stack->top;
+	while (current != NULL)
 	{
-		size++;
-		temp = temp->next;
+		stack_size++;
+		current = current->next;
 	}
-	return (size);
+	current = stack->top;
+	while (current != NULL)
+	{
+		index = 0;
+		compare = stack->top;
+		while (compare != NULL)
+		{
+			if (current->value > compare->value)
+				index++;
+			compare = compare->next;
+		}
+		ft_printf("Value %d gets index %d\n", current->value, index);
+		current->target_index = index;
+		current = current->next;
+	}
+	ft_printf("----- INDEXING COMPLETE -----\n");
+	stack->max_value = stack_size - 1;
 }
 
-void	process_digit(t_stack *a, t_stack *b, int digit_place)
-{
-	int	stack_size_value;
-	int	i;
-	int	current_value;
-	int	digit;
 
-	stack_size_value = stack_size(a);
-	i = 0;
-	while (i < stack_size_value)
+static void	process_bits(t_stack *a, t_stack *b, int i, int size)
+{
+	int	j;
+	int	current;
+
+	j = 0;
+	while (j < size)
 	{
-		current_value = a->top->value;
-		digit = (current_value / digit_place) % 10;
-		if (digit < 5)
-			ft_pb(a, b);
-		else
+		current = a->top->target_index;
+		ft_printf("Current number: %d, ", current);
+		if ((current >> i) & 1)
+		{
 			ft_ra(a);
-		i++;
+			ft_printf("Rotating A\n");
+		}
+		else
+		{
+			ft_pb(a, b);
+			ft_printf("Pushing to B\n");
+		}
+		ft_printf("Stack A after operation:\n");
+		print_stack(a);
+		ft_printf("Stack B after operation:\n");
+		print_stack(b);
+		j++;
 	}
 }
 
 void	sort_radix(t_stack *a, t_stack *b)
 {
-	int	max_value;
-	int	digit_place;
+	int	max_bits;
+	int	i;
+	int	size;
 
-	max_value = get_max_value(a);
-	digit_place = 1;
-	while (max_value / digit_place > 0)
+	ft_printf("\n----- ENTERING SORT RADIX -----\n");
+	ft_printf("\nInitial Stack A:\n");
+	print_stack(a);
+	ft_printf("\nInitial Stack B:\n");
+	print_stack(b);
+	size = a->size;
+	index_value(a);
+	max_bits = 0;
+	while ((a->max_value >> max_bits) != 0)
+		++max_bits; // ?max_bits++;
+	ft_printf("\nMax value: %d, Number of bits: %d\n", a->max_value, max_bits);
+	ft_printf("\nAfter indexing Stack A:\n");
+	print_stack(a);
+	i = 0;
+	while (i < max_bits)
 	{
-		process_digit(a, b, digit_place);
+		ft_printf("\n----- Processing bit %d -----\n", i);
+		process_bits(a, b, i, size);
+		ft_printf("\n----- Pushing all elements back to A -----\n");
 		while (!is_empty(b))
-		 	ft_pa(b, a);
-		digit_place *= 10;
+		{
+			ft_pa(a, b);
+			ft_printf("Pushing from B to A\n");
+			ft_printf("Stack A:\n");
+			print_stack(a);
+			ft_printf("Stack B:\n");
+			print_stack(b);
+		}
+		i++;
 	}
+	ft_printf("\n----- RADIX SORT COMPLETED -----\n");
+	ft_printf("\nFinal Stack A:\n");
+	print_stack(a);
+	ft_printf("\nFinal Stack B:\n");
+	print_stack(b);
 }
