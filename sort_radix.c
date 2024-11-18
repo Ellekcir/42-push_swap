@@ -1,124 +1,74 @@
 #include "push_swap.h"
 
-
-int	find_max(t_stack *stack)
-{
-	t_node	*temp;
-	int		max_value;
-
-	temp = stack->top;
-	max_value = temp->index;
-	while (temp != NULL)
-	{
-		if (temp->index > max_value)
-			max_value = temp->index;
-		temp = temp->next;
-	}
-	return (max_value);
-}
-
-void	index_value(t_stack *stack)
+// Assigns a new index to the element based off
+// its value and where it should be within the
+// completed sorted stack
+// Assigns the node's "Target" position using
+// its new index by comparing each value and 
+// increasing the index count for every element 
+// that is less than the current element
+static void assign_target_index(t_stack *stack)
 {
 	t_node	*current;
-	t_node	*compare;
+	t_node	*compare_next_node;
 	int		index;
-	int		stack_size;
 
-	stack_size = 0;
-	ft_printf("\n----- INDEXING VALUES -----\n");
-	current = stack->top;
-	while (current != NULL)
-	{
-		stack_size++;
-		current = current->next;
-	}
 	current = stack->top;
 	while (current != NULL)
 	{
 		index = 0;
-		compare = stack->top;
-		while (compare != NULL)
+		compare_next_node = stack->top;
+		while (compare_next_node != NULL)
 		{
-			if (current->value > compare->value)
+			if (current->value > compare_next_node->value)
 				index++;
-			compare = compare->next;
+			compare_next_node = compare_next_node->next;
 		}
-		ft_printf("Value %d gets index %d\n", current->value, index);
-		current->target_index = index;
+		current->target = index;
 		current = current->next;
 	}
-	ft_printf("----- INDEXING COMPLETE -----\n");
-	stack->max_value = stack_size - 1;
 }
 
-
-static void	process_bits(t_stack *a, t_stack *b, int i, int size)
+static void process_bit(t_stack *a, t_stack *b, int bit, int size)
 {
-	int	j;
-	int	current;
+	int	count;
 
-	j = 0;
-	while (j < size)
+	count = 0;
+	while (count < size)
 	{
-		current = a->top->target_index;
-		ft_printf("Current number: %d, ", current);
-		if ((current >> i) & 1)
-		{
-			ft_ra(a);
-			ft_printf("Rotating A\n");
-		}
-		else
-		{
+		if (((a->top->target >> bit) & 1) == 0)
 			ft_pb(a, b);
-			ft_printf("Pushing to B\n");
-		}
-		ft_printf("Stack A after operation:\n");
-		print_stack(a);
-		ft_printf("Stack B after operation:\n");
-		print_stack(b);
-		j++;
+		else
+			ft_ra(a);
+		count++;
 	}
 }
 
-void	sort_radix(t_stack *a, t_stack *b)
+// This will start a radix sort by finding the maximum bits needed for the maximum target index which will be assigned to every node based it values.
+void sort_large(t_stack *a, t_stack *b)
 {
 	int	max_bits;
-	int	i;
-	int	size;
+	int	bit;
+	int	stack_size;
+	t_node *current;
 
-	ft_printf("\n----- ENTERING SORT RADIX -----\n");
-	ft_printf("\nInitial Stack A:\n");
-	print_stack(a);
-	ft_printf("\nInitial Stack B:\n");
-	print_stack(b);
-	size = a->size;
-	index_value(a);
+	assign_target_index(a);
+	current = a->top;
 	max_bits = 0;
-	while ((a->max_value >> max_bits) != 0)
-		++max_bits; // ?max_bits++;
-	ft_printf("\nMax value: %d, Number of bits: %d\n", a->max_value, max_bits);
-	ft_printf("\nAfter indexing Stack A:\n");
-	print_stack(a);
-	i = 0;
-	while (i < max_bits)
+	while (current != NULL)
 	{
-		ft_printf("\n----- Processing bit %d -----\n", i);
-		process_bits(a, b, i, size);
-		ft_printf("\n----- Pushing all elements back to A -----\n");
-		while (!is_empty(b))
-		{
-			ft_pa(a, b);
-			ft_printf("Pushing from B to A\n");
-			ft_printf("Stack A:\n");
-			print_stack(a);
-			ft_printf("Stack B:\n");
-			print_stack(b);
-		}
-		i++;
+		if (current->target > (1 << max_bits) - 1)
+			max_bits++;
+		current = current->next;
 	}
-	ft_printf("\n----- RADIX SORT COMPLETED -----\n");
-	ft_printf("\nFinal Stack A:\n");
-	print_stack(a);
-	ft_printf("\nFinal Stack B:\n");
-	print_stack(b);
+
+	stack_size = a->size;
+	bit = 0;
+	while (bit < max_bits)
+	{
+		process_bit(a, b, bit, stack_size);
+		while (b->top != NULL)
+			ft_pa(a, b);
+		bit++;
+	}
 }
