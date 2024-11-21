@@ -10,6 +10,8 @@ void	ft_error(t_stack *a, t_stack *b)
 	exit (1);
 }
 
+
+
 int	find_max(t_stack *stack)
 {
 	t_node	*current;
@@ -34,7 +36,7 @@ int	find_min(t_stack *stack)
 	int min_value;
 
 	if (stack == NULL || stack->top == NULL)
-		return (0);
+		return (1);
 	current = stack->top;
 	min_value = current->value;
 	
@@ -100,10 +102,13 @@ void print_stack(t_stack *stack) {
 	}
 	ft_printf("Stack (size %d):\n", stack->size);
 	current_node = stack->top;
-	ft_printf("Stack values: ");
-	while (current_node != NULL) {
-		ft_printf("%d ", current_node->value);
+	ft_printf("Stack: ");
+	while (current_node != NULL) 
+	{
+		ft_printf("\n\t Value: %d \t", current_node->value);
+		ft_printf("Target: %d \n", current_node->target);
 		current_node = current_node->next;
 	}
+
 	ft_printf("\n");
 }

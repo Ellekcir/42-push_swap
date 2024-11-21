@@ -53,7 +53,7 @@ void parse_input(t_stack *a, t_stack *b, char **argv, int argc);
 //---------------------------------------------------//
 int ft_issorted(t_stack *stack);
 int	ft_isdup(t_stack *a);
-int	ft_isint(const char *arg);
+int	ft_isint(char *arg);
 //---------------------------------------------------//
 //--------------Stack Operations---------------------//
 //---------------------------------------------------//
@@ -77,6 +77,7 @@ void	ft_ss(t_stack *a, t_stack *b);
 //---------------------------------------------------//
 //---------------- Utils ----------------------------//
 //---------------------------------------------------//
+void assign_targets(t_stack *a);
 void	ft_error(t_stack *a, t_stack *b);
 int	find_max(t_stack *stack);
 int	find_min(t_stack *stack)
@@ -91,8 +92,8 @@ void print_stack(t_stack *stack);
 void push_swap(t_stack *a, t_stack *b);
 void	sort_small(t_stack *a);
 
-void sort_medium(t_stack *a, t_stack *b);
-void	sort_large(t_stack *a, t_stack *b);
+void sort_insertion(t_stack *a, t_stack *b);
+//void	sort_large(t_stack *a, t_stack *b);
 
 
 //void merge_sort(t_stack *a, t_stack *b);

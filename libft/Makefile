@@ -69,18 +69,18 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar -rc $(NAME) $(OBJ)
-	@echo "$(NAME) created"
+
 
 %.o: %.c
 	@$(COMPILER) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJ)
-	@echo "OBJ deleted"
+
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(NAME) deleted"
+
 
 re: fclean all
 

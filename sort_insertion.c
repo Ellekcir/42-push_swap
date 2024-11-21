@@ -44,10 +44,10 @@ static void push_all_back_to_a(t_stack *a, t_stack *b)
 // Sorts the medium-sized stack using Insertion Sort logic
 // Pushes all but 3 in smallest to largest order to stack b
 // Sorts the remaining three before pushing all back to a
-void sort_medium(t_stack *a, t_stack *b)
+void sort_insertion(t_stack *a, t_stack *b)
 {
-	while (a->size > 3)
+	while (a->size > 0)
 		push_smallest_a_to_b(a, b);
-	sort_small(a);
+	//sort_small(a);
 	push_all_back_to_a(a, b);
 }

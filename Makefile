@@ -7,7 +7,6 @@ SRC     = op_rotate.c \
 		op_swap.c \
 		sort_three.c \
 		sort_insertion.c \
-		sort_chunk.c \
 		parse.c \
 		validation.c \
 		stack.c \
@@ -15,8 +14,8 @@ SRC     = op_rotate.c \
 		push_swap.c \
 		main.c
 
-#		sort_radix.c \
-
+#		sort_radix.c 
+#		sort_chunk.c 
 OBJ     = $(SRC:.c=.o)
 
 # COMPILER + FLAGS
