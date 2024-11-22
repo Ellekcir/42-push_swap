@@ -5,8 +5,9 @@ SRC     = op_rotate.c \
 		op_rev_rotate.c \
 		op_push.c \
 		op_swap.c \
-		sort_three.c \
-		sort_insertion.c \
+		sort_small.c \
+		sort_medium.c \
+		sort_large.c \
 		parse.c \
 		validation.c \
 		stack.c \
@@ -14,9 +15,10 @@ SRC     = op_rotate.c \
 		push_swap.c \
 		main.c
 
-#		sort_radix.c 
-#		sort_chunk.c 
+# Object files will be placed in the obj directory
+OBJ_DIR = obj
 OBJ     = $(SRC:.c=.o)
+OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ)))
 
 # COMPILER + FLAGS
 CC      = gcc
@@ -36,25 +38,28 @@ DEFAULT = \033[0m
 CYAN = \033[36m
 RED = \033[31m
 GREEN = \033[0;32m
+
 # BUILD TARGETS
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@make -C $(LIBFTPATH)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFTPATH) -lft
+$(NAME): $(OBJ_FILES)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_FILES) -L$(LIBFTPATH) -lft
 	@echo "$(CYAN)$(NAME) created$(DEFAULT)"
 
-%.o: %.c $(HEADER)
+# Rule to compile .c files into .o files inside the obj directory
+$(OBJ_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 norm:
 	@$(NORMINETTE) $(SRC) $(HEADER) $(NORM_FLAGS)
-	@echo "$(GREEN)Norminette checks completed!$(RESET)"
+	@echo "$(GREEN)Norminette checks completed!$(DEFAULT)"
 
 clean:
-	@rm -f $(OBJ)
+	@rm -f $(OBJ_FILES)
 	@make clean -C $(LIBFTPATH)
 	@echo "$(RED)Object files deleted$(DEFAULT)"
 
@@ -65,4 +70,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re norm

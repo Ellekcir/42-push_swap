@@ -1,11 +1,5 @@
 #include "push_swap.h"
 
-// Checks if inout has been given
-// Initiates stacks
-// Parses the input to stack a
-// Sorts the input through our push swap function
-// Frees memory of the stacks when done
-
 int main(int argc, char **argv)
 {
 	t_stack *a;
@@ -15,6 +9,10 @@ int main(int argc, char **argv)
 		return (0);
 	a = create_stack();
 	b = create_stack();
+	if (!a || !b)
+	{
+		return (1);
+	}
 	parse_input(a, b, argv, argc);
 	if (!ft_issorted(a))
 		push_swap(a, b);

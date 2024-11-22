@@ -24,22 +24,20 @@ void assign_targets(t_stack *a)
 			current = current->next;
 		}
 		if (min_node)
-			min_node->target = index++;
+		{
+			min_node->target = index;
+			index++;
+		}
 	}
 }
 
 void push_swap(t_stack *a, t_stack *b)
 {
-	// ft_printf("Stack before operations:\n");
-	// ft_printf("Top: %d\n", a->top->value);
-	// if (a->top->next)
-	// 	ft_printf("Next: %d\n", a->top->next->value);
 	assign_targets(a);
 	if (a->size <= 3)
 		sort_small(a);
-	else if (a->size <= 20)
-		sort_insertion(a, b);
-	// else if (a->size > 20)
-	//  	sort_large(a, b);
-	//print_stack(a);
+	else if (a->size <= 6)
+		sort_medium(a, b);
+	else
+	 	sort_large(a, b);
 }

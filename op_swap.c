@@ -7,8 +7,6 @@ void	ft_swap(t_stack *stack)
 
 	if (!stack || stack->size < 2)
 		return ;
-	if (!stack || stack->size < 2)
-    	return ;
 	first = stack->top;
 	second = first->next;
 	first->next = second->next;
@@ -18,25 +16,28 @@ void	ft_swap(t_stack *stack)
 
 void	ft_sa(t_stack *a)
 {
-	if (!a || a->size < 2)
-		return ;
-	ft_swap(a);
-	ft_printf("sa\n");
+	if (a && a->size > 1)
+	{
+		ft_swap(a);
+		ft_printf("sa\n");
+	}
 }
 
 void	ft_sb(t_stack *b)
 {
-	if (!b || b->size < 2)
-		return ;
-	ft_swap(b);
-	ft_printf("sb\n");
+	if (b && b->size > 1)
+	{
+		ft_swap(b);
+		ft_printf("sb\n");
+	}
 }
 
 void	ft_ss(t_stack *a, t_stack *b)
 {
-	if ((!a || a->size < 2) && (!b || b->size < 2))
-		return ;
-	ft_swap(a);
-	ft_swap(b);
-	ft_printf("ss\n");
+	if ((a && a->size > 1) && (b && b->size > 1))
+	{
+		ft_swap(a);
+		ft_swap(b);
+		ft_printf("ss\n");
+	}
 }

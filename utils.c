@@ -7,10 +7,8 @@ void	ft_error(t_stack *a, t_stack *b)
 	if (b)
 		free_stack(b);
 	write(2, "Error\n", 6);
-	exit (1);
+	exit(1);
 }
-
-
 
 int	find_max(t_stack *stack)
 {
@@ -18,7 +16,7 @@ int	find_max(t_stack *stack)
 	int		max_value;
 
 	if (stack == NULL || stack->top == NULL)
-		return (0);
+		return (INT_MIN);
 	current = stack->top;
 	max_value = current->value;
 	while (current != NULL)
@@ -33,13 +31,12 @@ int	find_max(t_stack *stack)
 int	find_min(t_stack *stack)
 {
 	t_node	*current;
-	int min_value;
+	int		min_value;
 
 	if (stack == NULL || stack->top == NULL)
-		return (1);
+		return (INT_MAX);
 	current = stack->top;
 	min_value = current->value;
-	
 	while (current)
 	{
 		if (current->value < min_value)
@@ -49,48 +46,39 @@ int	find_min(t_stack *stack)
 	return (min_value);
 }
 
-int ft_isempty(t_stack *stack)
+int	ft_isempty(t_stack *stack)
 {
 	return (stack == NULL || stack->size == 0);
 }
 
-void	print_stacks(t_stack *a, t_stack *b)
+void	print_stack_contents(t_node *stack_top, char *stack_name)
 {
-	t_node *temp_a;
-	t_node *temp_b;
+	t_node	*temp;
 
-	temp_a = a->top;
-	temp_b = b->top;
-	if (a)
+	temp = stack_top;
+	if (temp)
 	{
 		ft_printf("\n|####################|");
-		ft_printf("\n|####################|");
 		ft_printf("\n|--------------------|");
-		ft_printf("\n    STACK A\n");
+		ft_printf("\n    %s\n", stack_name);
 		ft_printf("|--------------------|");
-		while (temp_a)
+		while (temp)
 		{
-			ft_printf("\n\t%d\n  +----------------+", temp_a->value);
-			temp_a = temp_a->next;
-		}
-		ft_printf("\n\tNULL\n|--------------------|\n");
-	}
-	if (b)
-	{
-		ft_printf("|####################|");
-		ft_printf("\n|####################|");
-		ft_printf("\n|--------------------|");
-		ft_printf("\n    STACK B\n");
-		ft_printf("|--------------------|");
-		while (temp_b)
-		{
-			ft_printf("\n\t%d\n +----------------+", temp_b->value);
-			temp_b = temp_b->next;
+			ft_printf("\n\t%d\n  +----------------+", temp->value);
+			temp = temp->next;
 		}
 		ft_printf("\n\tNULL\n|--------------------|");
-		ft_printf("\n|####################|");
-		ft_printf("\n|####################|\n");
 	}
+}
+
+void	print_stacks(t_stack *a, t_stack *b)
+{
+	if (a)
+		print_stack_contents(a->top, "STACK A");
+	if (b)
+		print_stack_contents(b->top, "STACK B");
+	ft_printf("\n|####################|");
+	ft_printf("\n|####################|\n");
 }
 
 void print_stack(t_stack *stack) {
