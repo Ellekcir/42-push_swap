@@ -9,8 +9,10 @@ static void	ft_handle_string_args(t_stack *a, t_stack *b, char *arg)
 	i = 0;
 	split_args = ft_split(arg, ' ');
 	if (!split_args || !split_args[0])
+	{
+		free(split_args);
 		ft_error(a, b);
-
+	}
 	while (split_args[i])
 	{
 		value = ft_isint(split_args[i]);
@@ -22,11 +24,22 @@ static void	ft_handle_string_args(t_stack *a, t_stack *b, char *arg)
 			free(split_args);
 			ft_error(a, b);
 		}
-		put_value_to_stack(a, value);  // Add to stack
+		put_value_to_stack(a, value);
 		free(split_args[i]);
-		++i;
+		i++;
 	}
 	free(split_args);
+}
+
+void free_split(char **split_args)
+{
+    int i = 0;
+    while (split_args[i])
+    {
+        free(split_args[i]);
+        i++;
+    }
+    free(split_args);
 }
 
 static void	ft_handle_args(t_stack *a, t_stack *b, char **argv, int argc)

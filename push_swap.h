@@ -148,8 +148,10 @@ void sort_large(t_stack *a, t_stack *b);
 void push_chunks_to_b(t_stack *a, t_stack *b, int chunk_start, int chunk_size);
 int distance_to_target(t_stack *stack, int target);
 
+int find_max_target(t_stack *stack);
 
 // Determines the size of a chunk for chunk-based sorting
 int ft_chunk_size(int stack_size);
+void free_split(char **split_args);
 
 #endif

@@ -2,51 +2,37 @@
 
 int ft_isint(char *arg)
 {
-    int sign = 1;
-    long value = 0;
+	int sign = 1;
+	long value = 0;
 
-    // Skip leading spaces
-    while ((*arg >= 9 && *arg <= 13) || *arg == 32)
-        arg++;
+	while ((*arg >= 9 && *arg <= 13) || *arg == 32)
+		arg++;
+	if (*arg == '\0')
+		return (0);
+	if (*arg == '-' || *arg == '+')
+	{
+		if (!ft_isdigit(*(arg + 1)))
+			ft_error(NULL, NULL);
+		sign = (*arg == '-') ? -1 : 1;
+		arg++;
+	}
+	value = 0;
+	while (*arg)
+	{
+		if (!ft_isdigit(*arg))
+			ft_error(NULL, NULL);
+		value = value * 10 + (*arg - '0');
+		if ((value > INT_MAX && sign == 1) || (value - 1 > INT_MAX && sign == -1))
+			ft_error(NULL, NULL);
+		arg++;
+	}
+	value *= sign;
+	if (value > INT_MAX || value < INT_MIN)
+		ft_error(NULL, NULL);
 
-    // Check if the string is empty
-    if (*arg == '\0')
-        return 0;
-
-    // Handle sign (+ or -)
-    if (*arg == '-' || *arg == '+')
-    {
-        if (*arg == '-')
-    		sign = -1;
-		else
-    		sign = 1;
-	
-        arg++;  // Move to the next character
-    }
-
-    // Process digits
-    while (*arg)
-    {
-        if (!ft_isdigit(*arg))  // Ensure it's a digit
-            ft_error(NULL, NULL);
-
-        value = value * 10 + (*arg - '0');
-
-        // Check for overflow
-        if ((value > INT_MAX && sign == 1) || (value > (long)INT_MAX + 1 && sign == -1))
-            ft_error(NULL, NULL);
-
-        arg++;
-    }
-
-    value *= sign;
-
-    // Check boundaries
-    if (value < INT_MIN || value > INT_MAX)
-        ft_error(NULL, NULL);
-
-    return (int)value;
+	return ((int)(value));
 }
+
 
 int	ft_isdup(t_stack *a)
 {
@@ -79,7 +65,7 @@ int ft_issorted(t_stack *stack)
 	current_node = stack->top;
 	while (current_node->next != NULL) 
 	{        
-		if (current_node->value < current_node->next->value)
+		if (current_node->value > current_node->next->value)
 			return (0);
 		current_node = current_node->next;
 	}

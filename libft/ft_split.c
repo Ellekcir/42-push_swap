@@ -113,8 +113,11 @@ char	**ft_split(char const *s, char c)
 {
 	char	**array;
 
+	if (s == NULL)
+		return (NULL);
+
 	array = (char **)malloc(sizeof(char *) * (ft_charcount(s, c) + 1));
-	if (array == NULL || s == NULL)
+	if (array == NULL)
 		return (NULL);
 	array = ft_fillmemarray(array, s, c);
 	return (array);

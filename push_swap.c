@@ -33,11 +33,17 @@ void assign_targets(t_stack *a)
 
 void push_swap(t_stack *a, t_stack *b)
 {
-	assign_targets(a);
+	//assign_targets(a);
 	if (a->size <= 3)
 		sort_small(a);
 	else if (a->size <= 6)
 		sort_medium(a, b);
 	else
 	 	sort_large(a, b);
+	print_stack(a);
 }
+// 	ft_printf("\n\t STACK A: \n");
+// 	print_stack(a);
+// 	ft_printf("\n\t STACK B: \n");
+// 	print_stack(b);
+// }

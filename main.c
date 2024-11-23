@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 	b = create_stack();
 	if (!a || !b)
 	{
-		return (1);
+		ft_error(a, b);
 	}
 	parse_input(a, b, argv, argc);
 	if (!ft_issorted(a))

@@ -1,38 +1,106 @@
 #include "push_swap.h"
 
+int find_max_target(t_stack *stack)
+{
+	t_node *current;
+	int max_target;
+
+	if (stack->top == NULL)
+		return (-1); // Error: Empty stack
+
+	current = stack->top;
+	max_target = current->target;
+	while (current)
+	{
+		if (current->target > max_target)
+		{
+			max_target = current->target;
+			ft_printf("max_target in B: %d\n", max_target);
+		}
+		current = current->next;
+	}
+	return (max_target);
+}
 int ft_chunk_size(int stack_size)
 {
-	int chunk_size;
-
 	if (stack_size <= 6)
 		return (stack_size);
-	chunk_size = stack_size / 5;
-	return (chunk_size);
+	if (stack_size <= 100)
+		return (stack_size / 10);
+	return (stack_size / 10);
 }
 
 void push_chunks_to_b(t_stack *a, t_stack *b, int chunk_start, int chunk_size)
 {
-	int pushed_count = 0;
+	int pushed_count;
+	t_node *current;
+	int min_distance;
+	int target_position;
+	int i;
 
-	while (pushed_count < chunk_size)
+	pushed_count = 0;
+	while (pushed_count < chunk_size && a->size > 0)
 	{
+		current = a->top;
+		min_distance = a->size;
+		target_position = -1;
+		i = 0;
 
-		if (a->top->target >= chunk_start && a->top->target < (chunk_start + chunk_size))
+		// Find the closest element in the current chunk
+		while (current != NULL)
 		{
-			ft_pb(a, b);
-			pushed_count++;
+			if (current->target >= chunk_start && current->target < chunk_start + chunk_size)
+			{
+				int distance;
+
+				distance = i;
+				if (i > a->size / 2)
+					distance = a->size - i;
+
+				if (distance < min_distance)
+				{
+					min_distance = distance;
+					target_position = i;
+				}
+			}
+			current = current->next;
+			i++;
+		}
+
+		// Bring the closest target to the top and push it
+		if (target_position <= a->size / 2)
+		{
+			while (target_position > 0)
+			{
+				ft_ra(a);
+				target_position--;
+			}
 		}
 		else
-			ft_ra(a); 
-		// print_stack(a);
-		// print_stack(b);
+		{
+			while (target_position < a->size)
+			{
+				ft_rra(a);
+				target_position++;
+			}
+		}
+		ft_pb(a, b);
+		pushed_count++;
 	}
 }
 
 int distance_to_target(t_stack *stack, int target)
 {
-	t_node *current = stack->top;
-	int position = 0;
+	t_node *current;
+	int position;
+
+	if (stack->top == NULL)
+	{
+		ft_printf("Error: Stack is empty\n");
+		return (-1);
+	}
+	current = stack->top;
+	position = 0;
 	while (current != NULL)
 	{
 		if (current->target == target)
@@ -41,35 +109,39 @@ int distance_to_target(t_stack *stack, int target)
 		position++;
 	}
 	if (current == NULL)
-		return -1;
+	{
+		ft_printf("Error: Target %d not found in stack\n", position);
+		return (-1);
+	}
 
 	if (position <= stack->size / 2)
-		return position;
-	return stack->size - position;
+		return (position);
+	return (position - stack->size);
 }
 
 void merge_chunks_back(t_stack *a, t_stack *b)
 {
-	int target;
+	int max_target;
+	int distance;
 
-	while (b->top != NULL)
+	while (b->size > 0)
 	{
-		target = b->top->target;
-		int distance;
-		while (a->top->target != target)
+		max_target = find_max_target(b);
+		distance = distance_to_target(b, max_target);
+		while (b->top->target != max_target)
 		{
-			distance = distance_to_target(a, target);
-
-			if (distance <= a->size / 2)
+			if (distance > 0)
 			{
-				ft_ra(a);
+				ft_rb(b);
+				distance--;
 			}
 			else
 			{
-				ft_rra(a);
+				ft_rrb(b);
+				distance++;
 			}
 		}
-		ft_pa(b, a);
+		ft_pa(a, b);
 	}
 }
 
@@ -78,28 +150,31 @@ void sort_large(t_stack *a, t_stack *b)
 {
 	int chunk_size;
 	int chunk_start;
-	int stack_total = a->size;
+	int stack_total;
 
-	chunk_start = 0;
+	stack_total = a->size;
 	chunk_size = ft_chunk_size(a->size);
-	// ft_printf("CHUNK SIZE:%i \n", chunk_size);
-	//  Determine chunk size eg: 100/5 =20
-	if (a->size <= 6)
+	chunk_start = 0;
+
+	if (stack_total <= 6)
 	{
 		sort_medium(a, b);
 		return;
 	}
-	while (chunk_start < (stack_total / 5))
+	assign_targets(a);
+	ft_printf("\n-------\n\tStack A:\n\n");
+	print_stack(a);
+	while (chunk_start < stack_total)
 	{
 		push_chunks_to_b(a, b, chunk_start, chunk_size);
 		chunk_start += chunk_size;
 	}
-	if (a->size != 0)
-	{
-		if (a->size <= 3)
-			sort_small(a);
-		else
-			sort_medium(a, b);
-	}
+	if (a->size > 0)
+		sort_medium(a, b);
+	ft_printf("\tStack A:\n\n");
+	print_stack(a);
+	ft_printf("\tStack B:\n\n");
+	print_stack(b);
+	// Merge sorted chunks back to stack A
 	merge_chunks_back(a, b);
 }
