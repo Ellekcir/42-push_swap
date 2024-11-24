@@ -6,11 +6,11 @@ t_node *create_node(int value)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		return (NULL);
+		ft_error(NULL, NULL);
 	new_node->value = value;
 	new_node->target = -1;
 	new_node->next = NULL;
-
+	//ft_printf("Node added Stack\n");
 	return (new_node);
 }
 
@@ -20,13 +20,10 @@ t_stack *create_stack(void)
 
 	new_stack = malloc(sizeof(t_stack));
 	if (!new_stack)
-	{
-		//		ft_printf("Failure to create stacks");
 		ft_error(NULL, NULL);
-	}
 	new_stack->top = NULL;
 	new_stack->size = 0;
-	//	ft_printf("Stack created\n");
+	//ft_printf("New Stack Created\n");
 	return (new_stack);
 }
 
@@ -37,11 +34,9 @@ void put_value_to_stack(t_stack *stack, int value)
 
 	if (!stack)
 		ft_error(stack, NULL);
-
 	new_node = create_node(value);
 	if (!new_node)
-		return;
-
+		ft_error(stack, NULL);
 	if (stack->size == 0)
 	{
 		stack->top = new_node;
@@ -50,36 +45,33 @@ void put_value_to_stack(t_stack *stack, int value)
 	{
 		current_node = stack->top;
 		while (current_node->next)
-		{
 			current_node = current_node->next;
-		}
-
 		current_node->next = new_node;
 	}
-
 	stack->size++;
+	//ft_printf("Put values to NODE\n");
 }
 
-int free_nodes_from_stack(t_stack *stack)
+void free_nodes_from_stack(t_stack *stack)
 {
 	t_node *top_node;
 
 	if (!stack || !stack->top)
-		return (0);
+		ft_error(stack, NULL);
 	top_node = stack->top;
 	stack->top = top_node->next;
 	free(top_node);
 	stack->size--;
-
-	return (stack->size);
+	//ft_printf("Freed Nodes from Stack\n");
 }
 
-void free_stack(t_stack *stack)
+void free_stack(t_stack **stack)
 {
-	if (!stack)
-		return;
-	while (stack->size > 0)
-		free_nodes_from_stack(stack);
-	free(stack);
-	stack = NULL;
+	if (!stack || !(*stack))
+		ft_error(*stack, NULL);
+	while ((*stack)->size > 0)
+		free_nodes_from_stack(*stack);
+	free(*stack);
+	*stack = NULL;
+	//ft_printf("Freed Stack\n");
 }

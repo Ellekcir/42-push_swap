@@ -20,6 +20,7 @@ void	ft_pa(t_stack *a, t_stack *b)
 		ft_error(a, b);
 	ft_push(b, a);
 	ft_printf("pa\n");
+	print_stack(a);
 }
 
 void	ft_pb(t_stack *a, t_stack *b)
@@ -28,4 +29,5 @@ void	ft_pb(t_stack *a, t_stack *b)
 		ft_error(a, b);
 	ft_push(a, b);
 	ft_printf("pb\n");
+	print_stack(a);
 }

@@ -1,70 +1,95 @@
 #include "push_swap.h"
 
-int ft_isint(char *arg)
+long	ft_atol(const char *arg)
 {
-	int sign = 1;
-	long value = 0;
+	long	result;
+	long	sign;
 
-	while ((*arg >= 9 && *arg <= 13) || *arg == 32)
-		arg++;
-	if (*arg == '\0')
-		return (0);
-	if (*arg == '-' || *arg == '+')
-	{
-		if (!ft_isdigit(*(arg + 1)))
-			ft_error(NULL, NULL);
-		sign = (*arg == '-') ? -1 : 1;
-		arg++;
-	}
-	value = 0;
-	while (*arg)
-	{
-		if (!ft_isdigit(*arg))
-			ft_error(NULL, NULL);
-		value = value * 10 + (*arg - '0');
-		if ((value > INT_MAX && sign == 1) || (value - 1 > INT_MAX && sign == -1))
-			ft_error(NULL, NULL);
-		arg++;
-	}
-	value *= sign;
-	if (value > INT_MAX || value < INT_MIN)
+	result = 0;
+	sign = 1;
+	if (!arg || !*arg)
 		ft_error(NULL, NULL);
-
-	return ((int)(value));
+	while (*arg == ' ' || (*arg >= '\t' && *arg <= '\r'))
+		arg++;
+	if (*arg == '-' || *arg == '+')
+		sign = (*arg++ == '-') ? -1 : 1;
+	while (*arg >= '0' && *arg <= '9')
+	{
+		if (result > (LONG_MAX / 10) || 
+			(result == (LONG_MAX / 10) && (*arg - '0') > (LONG_MAX % 10)))
+			ft_error(NULL, NULL);
+		result = result * 10 + (*arg - '0');
+		arg++;
+	}
+	if (*arg && (*arg < '0' || *arg > '9'))
+		ft_error(NULL, NULL);
+	return (result * sign);
 }
 
 
-int	ft_isdup(t_stack *a)
+int	is_valid_int(const char *arg)
 {
-	t_node	*current_node;	
-	t_node	*next_node;
+	int	sign_count;
+
+	sign_count = 0;
+	if (!arg || !*arg)
+		ft_error(NULL, NULL);
+	while (*arg == ' ' || (*arg >= '\t' && *arg <= '\r'))
+		arg++;
+	if (*arg == '-' || *arg == '+')
+	{
+		sign_count++;
+		arg++;
+	}
+	if (!*arg || !ft_isdigit(*arg))
+		return (0);
+	while (*arg)
+	{
+		if (!ft_isdigit(*arg++))
+			return (0);
+	}
+	return (sign_count <= 1);
+}
+
+int	is_in_range(const char *arg)
+{
+	long	number;
+
+	number = ft_atol(arg);
+	return (number >= INT_MIN && number <= INT_MAX);
+}
+
+int has_duplicates(t_stack *a)
+{
+	t_node *current_node;
+	t_node *next_node;
 
 	if (!a || !a)
-		return (1);
+		return (0);
 	current_node = a->top;
-	while (current_node != NULL)
+	while (current_node)
 	{
 		next_node = current_node->next;
 		while (next_node != NULL)
 		{
 			if (current_node->value == next_node->value)
-				return (0);
+				return (1);
 			next_node = next_node->next;
 		}
 		current_node = current_node->next;
 	}
-	return (1);
+	return (0);
 }
 
-int ft_issorted(t_stack *stack)
+int is_sorted(t_stack *stack)
 {
-	t_node	*current_node;
+	t_node *current_node;
 
 	if (!stack || !stack->top || !stack->top->next)
 		return (1);
 	current_node = stack->top;
-	while (current_node->next != NULL) 
-	{        
+	while (current_node->next != NULL)
+	{
 		if (current_node->value > current_node->next->value)
 			return (0);
 		current_node = current_node->next;

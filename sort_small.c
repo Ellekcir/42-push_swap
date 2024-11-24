@@ -12,7 +12,7 @@ void	sort_three(t_stack *a)
 	t_node	*second;
 
 	if (a->size != 3)
-		return ;
+		ft_error(a, NULL);
 	first = a->top;
 	second = first->next;
 
@@ -28,6 +28,8 @@ void	sort_three(t_stack *a)
 
 void	sort_small(t_stack *a)
 {
+	// if (!a)
+	// 	ft_error(a, NULL);
 	if (a->size == 2)
 		sort_two(a);
 	else if (a->size == 3)

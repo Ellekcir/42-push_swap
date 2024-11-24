@@ -20,6 +20,7 @@ void	ft_sa(t_stack *a)
 	{
 		ft_swap(a);
 		ft_printf("sa\n");
+		print_stack(a);
 	}
 }
 
@@ -29,6 +30,7 @@ void	ft_sb(t_stack *b)
 	{
 		ft_swap(b);
 		ft_printf("sb\n");
+		print_stack(b);
 	}
 }
 

@@ -50,10 +50,10 @@ void put_value_to_stack(t_stack *stack, int value);
 t_node *create_node(int value);
 
 // Frees the entire stack (and its nodes)
-void free_stack(t_stack *stack);
+void free_stack(t_stack **stack);
 
 // Frees all nodes from the stack but not the stack itself
-int free_nodes_from_stack(t_stack *stack);
+void free_nodes_from_stack(t_stack *stack);
 
 //---------------------------------------------------//
 //--------------------INPUT HANDLING----------------//
@@ -67,13 +67,13 @@ void parse_input(t_stack *a, t_stack *b, char **argv, int argc);
 //---------------------------------------------------//
 
 // Checks if the stack is sorted
-int ft_issorted(t_stack *stack);
+int is_sorted(t_stack *stack);
 
 // Checks if there are any duplicates in stack a
-int ft_isdup(t_stack *a);
+int has_duplicates(t_stack *a);
 
 // Validates if the argument is a valid integer
-int ft_isint(char *arg);
+int	is_valid_int(const char *arg);
 
 //---------------------------------------------------//
 //--------------------STACK OPERATIONS----------------//
@@ -153,5 +153,9 @@ int find_max_target(t_stack *stack);
 // Determines the size of a chunk for chunk-based sorting
 int ft_chunk_size(int stack_size);
 void free_split(char **split_args);
+
+long	ft_atol(const char *arg);
+int	is_in_range(const char *arg);
+
 
 #endif

@@ -15,12 +15,13 @@ int find_max_target(t_stack *stack)
 		if (current->target > max_target)
 		{
 			max_target = current->target;
-			ft_printf("max_target in B: %d\n", max_target);
+			// ft_printf("max_target in B: %d\n", max_target);
 		}
 		current = current->next;
 	}
 	return (max_target);
 }
+
 int ft_chunk_size(int stack_size)
 {
 	if (stack_size <= 6)
@@ -96,7 +97,7 @@ int distance_to_target(t_stack *stack, int target)
 
 	if (stack->top == NULL)
 	{
-		ft_printf("Error: Stack is empty\n");
+		// ft_printf("Error: Stack is empty\n");
 		return (-1);
 	}
 	current = stack->top;
@@ -110,7 +111,7 @@ int distance_to_target(t_stack *stack, int target)
 	}
 	if (current == NULL)
 	{
-		ft_printf("Error: Target %d not found in stack\n", position);
+		// ft_printf("Error: Target %d not found in stack\n", position);
 		return (-1);
 	}
 
@@ -162,8 +163,8 @@ void sort_large(t_stack *a, t_stack *b)
 		return;
 	}
 	assign_targets(a);
-	ft_printf("\n-------\n\tStack A:\n\n");
-	print_stack(a);
+	// ft_printf("\n-------\n\tStack A:\n\n");
+	// print_stack(a);
 	while (chunk_start < stack_total)
 	{
 		push_chunks_to_b(a, b, chunk_start, chunk_size);
@@ -171,10 +172,10 @@ void sort_large(t_stack *a, t_stack *b)
 	}
 	if (a->size > 0)
 		sort_medium(a, b);
-	ft_printf("\tStack A:\n\n");
-	print_stack(a);
-	ft_printf("\tStack B:\n\n");
-	print_stack(b);
+	// ft_printf("\tStack A:\n\n");
+	// print_stack(a);
+	// ft_printf("\tStack B:\n\n");
+	// print_stack(b);
 	// Merge sorted chunks back to stack A
 	merge_chunks_back(a, b);
 }
