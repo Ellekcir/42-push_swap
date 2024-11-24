@@ -22,7 +22,7 @@ void	ft_ra(t_stack *a)
 	{
 		ft_rotate(a);
 		ft_printf("ra\n");
-		print_stack(a);
+		// print_stack(a);
 	}
 }
 
@@ -32,7 +32,7 @@ void	ft_rb(t_stack *b)
 	{
 		ft_rotate(b);
 		ft_printf("rb\n");
-		print_stack(b);
+		// print_stack(b);
 	}
 }
 

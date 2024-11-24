@@ -22,14 +22,14 @@ void	ft_rra(t_stack *a)
 {
 	ft_rev_rotate(a);
 	ft_printf("rra\n");
-	print_stack(a);
+	// print_stack(a);
 }
 
 void	ft_rrb(t_stack *b)
 {
 	ft_rev_rotate(b);
 	ft_printf("rrb\n");
-	print_stack(b);
+	// print_stack(b);
 }
 
 void	ft_rrr(t_stack *a, t_stack *b)
