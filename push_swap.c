@@ -45,6 +45,6 @@ void push_swap(t_stack *a, t_stack *b)
 		sort_medium(a, b);
 	else
 	 	sort_large(a, b);
-	// print_stack(a);
+	 //void assign_targets(t_stack *a)
 }
 

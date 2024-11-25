@@ -23,7 +23,7 @@ void	handle_string_args(t_stack *a, t_stack *b, char *arg)
 	if (!split_args || !split_args[0])
 	{
 		free_split(split_args);
-		ft_error(a, b);
+		return ;
 	}
 	i = 0;
 	while (split_args[i])
@@ -45,6 +45,8 @@ void	handle_args(t_stack *a, t_stack *b, char **argv, int argc)
 	int	value;
 
 	i = 1;
+	if (argc == 1)
+		exit (0);
 	while (i < argc)
 	{
 		if (!is_valid_int(argv[i]) || !is_in_range(argv[i]))

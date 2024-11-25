@@ -27,7 +27,7 @@ int ft_chunk_size(int stack_size)
 	if (stack_size <= 6)
 		return (stack_size);
 	if (stack_size <= 100)
-		return (stack_size / 10);
+		return (stack_size / 6);
 	return (stack_size / 10);
 }
 
@@ -96,10 +96,7 @@ int distance_to_target(t_stack *stack, int target)
 	int position;
 
 	if (stack->top == NULL)
-	{
-		// ft_printf("Error: Stack is empty\n");
 		return (-1);
-	}
 	current = stack->top;
 	position = 0;
 	while (current != NULL)
@@ -110,11 +107,7 @@ int distance_to_target(t_stack *stack, int target)
 		position++;
 	}
 	if (current == NULL)
-	{
-		// ft_printf("Error: Target %d not found in stack\n", position);
 		return (-1);
-	}
-
 	if (position <= stack->size / 2)
 		return (position);
 	return (position - stack->size);
@@ -156,15 +149,12 @@ void sort_large(t_stack *a, t_stack *b)
 	stack_total = a->size;
 	chunk_size = ft_chunk_size(a->size);
 	chunk_start = 0;
-
-	if (stack_total <= 6)
+	if (stack_total <= 10)
 	{
 		sort_medium(a, b);
-		return;
+		return ;
 	}
 	assign_targets(a);
-	// ft_printf("\n-------\n\tStack A:\n\n");
-	// print_stack(a);
 	while (chunk_start < stack_total)
 	{
 		push_chunks_to_b(a, b, chunk_start, chunk_size);

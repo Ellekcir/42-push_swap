@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	{
 		free_stack(&a);
 		free_stack(&b);
-		return (0);
+		exit (0);
 	}
 	parse_input(a, b, argv, argc);
 	if (!is_sorted(a))

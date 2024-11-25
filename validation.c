@@ -33,7 +33,7 @@ int	is_valid_int(const char *arg)
 
 	sign_count = 0;
 	if (!arg || !*arg)
-		ft_error(NULL, NULL);
+		return (0);
 	while (*arg == ' ' || (*arg >= '\t' && *arg <= '\r'))
 		arg++;
 	if (*arg == '-' || *arg == '+')
