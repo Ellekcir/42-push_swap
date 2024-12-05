@@ -23,7 +23,7 @@ void	handle_string_args(t_stack *a, t_stack *b, char *arg)
 	if (!split_args || !split_args[0])
 	{
 		free_split(split_args);
-		return ;
+		exit (0);
 	}
 	i = 0;
 	while (split_args[i])

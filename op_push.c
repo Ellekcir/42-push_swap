@@ -14,7 +14,7 @@ void	ft_push(t_stack *from, t_stack *to)
 	to->size++;
 }
 
-void	ft_pa(t_stack *a, t_stack *b)
+void	pa(t_stack *a, t_stack *b)
 {
 	if (!a || !b)
 		ft_error(a, b);
@@ -23,7 +23,7 @@ void	ft_pa(t_stack *a, t_stack *b)
 	// print_stack(a);
 }
 
-void	ft_pb(t_stack *a, t_stack *b)
+void	pb(t_stack *a, t_stack *b)
 {
 	if (!a || !b)
 		ft_error(a, b);

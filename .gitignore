@@ -1,0 +1,8 @@
+# Ignore object files and executables
+*.o
+*.txt
+# Ignore system files
+/.vscode/
+.DS_Store
+# Ignore TEST files
+push_swap_tester/

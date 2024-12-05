@@ -92,17 +92,17 @@ void ft_rev_rotate(t_stack *stack);
 void ft_swap(t_stack *stack);
 
 //--------------------- Operations ----------------//
-void ft_pa(t_stack *a, t_stack *b);   // Push element from stack b to stack a
-void ft_pb(t_stack *a, t_stack *b);   // Push element from stack a to stack b
-void ft_rra(t_stack *a);              // Reverse rotate stack a
-void ft_rrb(t_stack *b);              // Reverse rotate stack b
-void ft_rrr(t_stack *a, t_stack *b);  // Reverse rotate both stacks
-void ft_ra(t_stack *a);               // Rotate stack a
-void ft_rb(t_stack *b);               // Rotate stack b
-void ft_rr(t_stack *a, t_stack *b);   // Rotate both stacks
-void ft_sa(t_stack *a);               // Swap top two elements of stack a
-void ft_sb(t_stack *b);               // Swap top two elements of stack b
-void ft_ss(t_stack *a, t_stack *b);   // Swap top two elements of both stacks
+void pa(t_stack *a, t_stack *b);   // Push element from stack b to stack a
+void pb(t_stack *a, t_stack *b);   // Push element from stack a to stack b
+void rra(t_stack *a);              // Reverse rotate stack a
+void rrb(t_stack *b);              // Reverse rotate stack b
+void rrr(t_stack *a, t_stack *b);  // Reverse rotate both stacks
+void ra(t_stack *a);               // Rotate stack a
+void rb(t_stack *b);               // Rotate stack b
+void rr(t_stack *a, t_stack *b);   // Rotate both stacks
+void sa(t_stack *a);               // Swap top two elements of stack a
+void sb(t_stack *b);               // Swap top two elements of stack b
+void ss(t_stack *a, t_stack *b);   // Swap top two elements of both stacks
 
 //---------------------------------------------------//
 //-------------------UTILITY FUNCTIONS--------------//
@@ -144,12 +144,29 @@ void sort_medium(t_stack *a, t_stack *b);
 
 // Sorts stack using merge sort algorithm (planned for future)
 void sort_large(t_stack *a, t_stack *b);
-
-void push_chunks_to_b(t_stack *a, t_stack *b, int chunk_start, int chunk_size);
-int distance_to_target(t_stack *stack, int target);
-
+void rotate_b_to_target(t_stack *b, int distance);
+void merge_chunks_back(t_stack *a, t_stack *b);
+void rotate_to_top(t_stack *stack, int distance, char stack_name);
+int calculate_distance(t_stack *stack, int target_position);
+// int find_best_target_position(t_stack *a, int chunk_start, int chunk_size);
+// int calculate_distance(int stack_size, int index);
+int ft_chunk_size(int stack_size);
 int find_max_target(t_stack *stack);
-int find_closest_in_chunk(t_stack *a, int chunk_start, int chunk_size);
+int find_closest_target(t_stack *a, int chunk_start, int chunk_size);
+void rotate_and_push(t_stack *a, t_stack *b, int target_position);
+int distance_to_target(t_stack *stack, int target);
+// int find_min_value(t_node *node);
+void dual_rotate(t_stack *a, t_stack *b, int distance_a, int distance_b);
+int find_closest_in_chunk(t_stack *a, int chunk_start, int chunk_size)
+;
+// void rotate_to_top(t_stack *stack, int distance, char stack_name);
+
+// void push_chunks_to_b(t_stack *a, t_stack *b, int chunk_start, int chunk_size);
+// int distance_to_target(t_stack *stack, int target);
+// int find_max_value(t_node *node);
+
+// int find_max_target(t_stack *stack);
+// int find_closest_in_chunk(t_stack *a, int chunk_start, int chunk_size);
 // Determines the size of a chunk for chunk-based sorting
 int ft_chunk_size(int stack_size);
 void free_split(char **split_args);

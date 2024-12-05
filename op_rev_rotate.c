@@ -18,21 +18,21 @@ void	ft_rev_rotate(t_stack *stack)
 	stack->top = temp;
 }
 
-void	ft_rra(t_stack *a)
+void	rra(t_stack *a)
 {
 	ft_rev_rotate(a);
 	ft_printf("rra\n");
 	// print_stack(a);
 }
 
-void	ft_rrb(t_stack *b)
+void	rrb(t_stack *b)
 {
 	ft_rev_rotate(b);
 	ft_printf("rrb\n");
 	// print_stack(b);
 }
 
-void	ft_rrr(t_stack *a, t_stack *b)
+void	rrr(t_stack *a, t_stack *b)
 {
 	ft_rev_rotate(a);
 	ft_rev_rotate(b);

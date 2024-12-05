@@ -14,7 +14,7 @@ static void push_smallest_a_to_b(t_stack *a, t_stack *b)
 	min = find_min(a);
 	index = 0;
 	current = a->top;
-	while (current && (!(current->value == min)))
+	while (current && current->value != min)
 	{
 		current = current->next;
 		index++;
@@ -22,14 +22,14 @@ static void push_smallest_a_to_b(t_stack *a, t_stack *b)
 	if (index <= a->size / 2)
 	{
 		while (index-- > 0)
-			ft_ra(a);
+			ra(a);
 	} 
 	else 
 	{
 		while (index++ < a->size)
-			ft_rra(a);
+			rra(a);
 	}
-	ft_pb(a, b);
+	pb(a, b);
 }
 
 // This will push all the elements from stack b to a
@@ -38,7 +38,7 @@ static void push_smallest_a_to_b(t_stack *a, t_stack *b)
 static void push_all_back_to_a(t_stack *a, t_stack *b)
 {
 	while (b->size > 0)
-		ft_pa(a, b);
+		pa(a, b);
 }
 
 // Sorts the medium-sized stack using Insertion Sort logic

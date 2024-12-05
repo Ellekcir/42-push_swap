@@ -16,7 +16,7 @@ void	ft_rotate(t_stack *stack)
 	first->next = NULL;
 }
 
-void	ft_ra(t_stack *a)
+void	ra(t_stack *a)
 {
 	if (a && a->size > 1)
 	{
@@ -26,7 +26,7 @@ void	ft_ra(t_stack *a)
 	}
 }
 
-void	ft_rb(t_stack *b)
+void	rb(t_stack *b)
 {
 	if (b && b->size > 1)
 	{
@@ -36,7 +36,7 @@ void	ft_rb(t_stack *b)
 	}
 }
 
-void	ft_rr(t_stack *a, t_stack *b)
+void	rr(t_stack *a, t_stack *b)
 {
 	if (a && b && a->size > 1 && b->size > 1)
 	{
