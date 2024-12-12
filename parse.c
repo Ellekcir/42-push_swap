@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgriffit <rgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/06 10:15:48 by rgriffit          #+#    #+#             */
+/*   Updated: 2024/12/06 10:17:00 by rgriffit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void free_split(char **split_args)
+void	free_split(char **split_args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!split_args)
@@ -57,7 +68,7 @@ void	handle_args(t_stack *a, t_stack *b, char **argv, int argc)
 	}
 }
 
-void parse_input(t_stack *a, t_stack *b, char **argv, int argc)
+void	parse_input(t_stack *a, t_stack *b, char **argv, int argc)
 {
 	if (!a || !b)
 		ft_error(a, b);

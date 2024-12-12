@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_push.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgriffit <rgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/06 10:12:52 by rgriffit          #+#    #+#             */
+/*   Updated: 2024/12/06 10:12:53 by rgriffit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	ft_push(t_stack *from, t_stack *to)
@@ -20,7 +32,6 @@ void	pa(t_stack *a, t_stack *b)
 		ft_error(a, b);
 	ft_push(b, a);
 	ft_printf("pa\n");
-	// print_stack(a);
 }
 
 void	pb(t_stack *a, t_stack *b)
@@ -29,5 +40,4 @@ void	pb(t_stack *a, t_stack *b)
 		ft_error(a, b);
 	ft_push(a, b);
 	ft_printf("pb\n");
-	// print_stack(a);
 }

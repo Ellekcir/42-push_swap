@@ -7,11 +7,13 @@ SRC     = op_rotate.c \
 		op_swap.c \
 		sort_small.c \
 		sort_medium.c \
-		sort_large.c \
+		sort_large1.c \
+		sort_large2.c \
 		parse.c \
 		validation.c \
 		stack.c \
-		utils.c \
+		utils_helpers.c \
+		utils_prints.c \
 		push_swap.c \
 		main.c
 

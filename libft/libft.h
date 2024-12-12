@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgriffit <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rgriffit <rgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:41:03 by rgriffit          #+#    #+#             */
-/*   Updated: 2024/04/04 01:24:36 by rgriffit         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:59:01 by rgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>     // for open txt file
 # include <stdarg.h>
 # include <stddef.h>
-#include <signal.h> // minitalk
+# include <signal.h> // minitalk
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

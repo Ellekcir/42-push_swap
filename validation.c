@@ -1,31 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgriffit <rgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/06 11:35:30 by rgriffit          #+#    #+#             */
+/*   Updated: 2024/12/06 11:48:43 by rgriffit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-
-long	ft_atol(const char *arg)
-{
-	long	result;
-	long	sign;
-
-	result = 0;
-	sign = 1;
-	if (!arg || !*arg)
-		ft_error(NULL, NULL);
-	while (*arg == ' ' || (*arg >= '\t' && *arg <= '\r'))
-		arg++;
-	if (*arg == '-' || *arg == '+')
-		sign = (*arg++ == '-') ? -1 : 1;
-	while (*arg >= '0' && *arg <= '9')
-	{
-		if (result > (LONG_MAX / 10) || 
-			(result == (LONG_MAX / 10) && (*arg - '0') > (LONG_MAX % 10)))
-			ft_error(NULL, NULL);
-		result = result * 10 + (*arg - '0');
-		arg++;
-	}
-	if (*arg && (*arg < '0' || *arg > '9'))
-		ft_error(NULL, NULL);
-	return (result * sign);
-}
-
 
 int	is_valid_int(const char *arg)
 {
@@ -59,10 +44,10 @@ int	is_in_range(const char *arg)
 	return (number >= INT_MIN && number <= INT_MAX);
 }
 
-int has_duplicates(t_stack *a)
+int	has_duplicates(t_stack *a)
 {
-	t_node *current_node;
-	t_node *next_node;
+	t_node	*current_node;
+	t_node	*next_node;
 
 	if (!a || !a)
 		return (0);
@@ -81,9 +66,9 @@ int has_duplicates(t_stack *a)
 	return (0);
 }
 
-int is_sorted(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
-	t_node *current_node;
+	t_node	*current_node;
 
 	if (!stack || !stack->top || !stack->top->next)
 		return (1);

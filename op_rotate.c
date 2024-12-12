@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_rotate.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgriffit <rgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/06 10:14:53 by rgriffit          #+#    #+#             */
+/*   Updated: 2024/12/06 10:15:03 by rgriffit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	ft_rotate(t_stack *stack)
@@ -22,7 +34,6 @@ void	ra(t_stack *a)
 	{
 		ft_rotate(a);
 		ft_printf("ra\n");
-		// print_stack(a);
 	}
 }
 
@@ -32,7 +43,6 @@ void	rb(t_stack *b)
 	{
 		ft_rotate(b);
 		ft_printf("rb\n");
-		// print_stack(b);
 	}
 }
 

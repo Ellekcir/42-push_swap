@@ -6,7 +6,7 @@
 /*   By: rgriffit <rgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 01:27:03 by rgriffit          #+#    #+#             */
-/*   Updated: 2024/04/05 22:45:52 by rgriffit         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:58:47 by rgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-
 	array = (char **)malloc(sizeof(char *) * (ft_charcount(s, c) + 1));
 	if (array == NULL)
 		return (NULL);
